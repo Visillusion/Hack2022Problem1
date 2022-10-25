@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CodePen - Infinite &lt;li&gt; scroll</title>
+    <style>
+      body {
+        font-family: "Avenir";
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      #scroll-container {
+        overflow: hidden;
+        max-width: 100%;
+        margin: auto;
+        height: 50vh;
+        top: 25vh;
+        position: relative;
+        min-height: 200px;
+      }
+
+      .wrap-container {
+        position: relative;
+        max-height: 200px;
+        width: 100%;
+        max-width: 100%;
+        margin: auto;
+        /* background: #eee; */
+        overflow: auto;
+        padding-right: 20px;
+        mask: url(#masking);
+        -webkit-mask-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, black), color-stop(1, rgba(0, 0, 0, 0)));
+      }
+
+      .wrap-container ul {
+        list-style: none;
+        position: relative;
+        transition: transform 0.3s;
+        top: 50px;
+      }
+
+      .wrap-container ul,
+      .wrap-container ul li {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+
+      .wrap-container ul li {
+        height: 50px;
+        line-height: 50px;
+        transition: transform 0.3s;
+        overflow: hidden;
+      }
+
+      .wrap-container ul li:last-of-type {
+        padding-bottom: 50px;
+      }
+
+      .wrap-container ul li.active .item {
+        transform: scale(1.9);
+      }
+
+      .wrap-container ul li .item {
+        position: relative;
+        transition: transform 200ms;
+        display: inline-block;
+      }
+    </style>
+    <script>
+      if (document.location.search.match(/type=embed/gi)) {
+        window.parent.postMessage("resize", "*");
+      }
+    </script>
+  </head>
+  <body translate="no">
+    <div id="scroll-container">
+      <div class="wrap-container" id="wrap-scroll">
+        <ul id="ul-scroll">
+          <li class="active" id="start">
+            <span class="item"> List of Shelters </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <svg>
+      <defs>
+        <linearGradient id="gradient" x1="0" y1="0%" x2="0" y2="50%">
+          <stop stop-color="black" offset="0" />
+          <stop stop-color="white" offset="1" />
+        </linearGradient>
+        <mask id="masking" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+          <rect y="0" width="1" height="1" fill="url(#gradient)" />
+        </mask>
+      </defs>
+    </svg>
+    <script id="rendered-js">
+      fetch('https://rbxcopy.com/fire/shelters.json', {
+          cache: "no-store"
+        }).then((response) => response.json()).then((json) => {
+            json = json['shelters'];
+            //console.log(json);
+            count = -1;
+            for (var key2 in json) {
+              //console.log(key2);
+              count++;
+              for (var key in json[key2]) {
+                //console.log(key);
+                if (json[key2].hasOwnProperty(key)) {
+                  name = key;
+                  street = json[key2][key]['street'];
+                  city = json[key2][key]['city'];
+                  spots = parseInt(json[key2][key]['maxPeople']) - parseInt(json[key2][key]['currentPeople']);
+                  address = street + ", " + city;
+                  elem = document.querySelector('#start');
+                  clone = elem.cloneNode(true);
+                  clone.id = 'elem' + count;
+                  clone.classList.remove("active");
+                  console.log(" < a href = 'evacuate.html?popup="+name+"'
+                    value = '"+ name+" - "+address+" - "+spots+" left'
+                    ");
+                    clone.getElementsByTagName("span")[0].innerHTML = " < a style = 'color: #000000; text-decoration: none;'
+                    ' href='
+                    evacuate.html ? popup = "+name+"
+                    '>"+ name+" - "+address+" - "+spots+" left</a>";
+                    elem.after(clone);
+                  }
+                }
+              }
+            });
+    </script>
+    <script>
+      var scrollW = document.getElementById("wrap-scroll");
+      var scrollUl = document.getElementById("ul-scroll");
+      var itemsScrolled,
+        itemsMax,
+        cloned = false;
+      var listOpts = {
+        itemCount: null,
+        itemHeight: null,
+        items: []
+      };
+
+      function scrollWrap() {
+        itemsScrolled = Math.ceil((this.scrollTop + listOpts.itemHeight / 2) / listOpts.itemHeight);
+        if (this.scrollTop < 1) {
+          itemsScrolled = 0;
+        }
+        listOpts.items.forEach(function(ele) {
+          ele.classList.remove("active");
+        });
+        if (itemsScrolled < listOpts.items.length) {
+          listOpts.items[itemsScrolled].classList.add("active");
+        }
+        if (itemsScrolled > listOpts.items.length - 3) {
+          itemsScrolled = 0;
+        }
+      }
+
+      function initItems(scrollSmooth) {
+        listOpts.items = [].slice.call(scrollUl.querySelectorAll("li"));
+        listOpts.itemHeight = listOpts.items[0].clientHeight;
+        listOpts.itemCount = listOpts.items.length;
+        if (!itemsMax) {
+          itemsMax = listOpts.itemCount;
+        }
+        if (scrollSmooth) {
+          var seamLessScrollPoint = (itemsMax - 3) * listOpts.itemHeight;
+          scrollW.scrollTop = seamLessScrollPoint;
+        }
+      }
+      document.addEventListener("DOMContentLoaded", function(event) {
+        initItems();
+        scrollW.onscroll = scrollWrap;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #c4c3ca;
+    background-color: #1f2029;
+    overflow-x: hidden;
+  }
+</style>
+<script>
+  //Just to clear shelter for testing
+  fetch('https://rbxcopy.com/fire/clear').then((response) => response.text()).then((data) => {
+    //console.log(data);
+    if (data == "done") {
+      Swal.fire('Success!', 'You cleared the shelters json file!', 'success')
+    }
+  });
+</script>
