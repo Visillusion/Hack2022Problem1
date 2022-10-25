@@ -116,13 +116,7 @@
                   clone = elem.cloneNode(true);
                   clone.id = 'elem' + count;
                   clone.classList.remove("active");
-                  console.log(" < a href = 'evacuate.html?popup="+name+"'
-                    value = '"+ name+" - "+address+" - "+spots+" left'
-                    ");
-                    clone.getElementsByTagName("span")[0].innerHTML = " < a style = 'color: #000000; text-decoration: none;'
-                    ' href='
-                    evacuate.html ? popup = "+name+"
-                    '>"+ name+" - "+address+" - "+spots+" left</a>";
+                    clone.getElementsByTagName("span")[0].innerHTML = "<a style = 'color: #000000; text-decoration: none;' href='evacuate.html?popup="+name+"'>"+ name+" - "+address+" - "+spots+" left</a>";
                     elem.after(clone);
                   }
                 }
