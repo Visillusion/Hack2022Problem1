@@ -62,11 +62,11 @@
         var marker;
         if (position == 'none') {
           map = L.map('map').setView([latt, longg], 13);
-          marker = L.marker([latt, longg]).addTo(map).bindPopup(' < b > Estimated Location < /b>').openPopup();
+          marker = L.marker([latt, longg]).addTo(map).bindPopup(' <b>Estimated Location</b>').openPopup();
           }
           else {
             map = L.map('map').setView([parseFloat(position.coords.latitude), parseFloat(position.coords.longitude)], 13);
-            marker = L.marker([parseFloat(position.coords.latitude), parseFloat(position.coords.longitude)]).addTo(map).bindPopup(' < b > You are here < /b>').openPopup();
+            marker = L.marker([parseFloat(position.coords.latitude), parseFloat(position.coords.longitude)]).addTo(map).bindPopup(' <b>You are here</b>').openPopup();
             }
             const tiles = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&language=en', {
               maxZoom: 20,
@@ -99,13 +99,13 @@
                               }));
                               L.marker([json[key2][key]['lat'], json[key2][key]['long']], {
                                 icon: window['shelter_' + count]
-                              }).addTo(map).bindPopup(' < b > Wildfire Shelter < /b> < p > '+key+' < /p>').openPopup();
+                              }).addTo(map).bindPopup('<b>Wildfire Shelter</b><p>'+key+'</p>').openPopup();
                               }, 500);
                           }
                           else {
                             L.marker([json[key2][key]['lat'], json[key2][key]['long']], {
                               icon: window['shelter_' + count]
-                            }).addTo(map).bindPopup(' < b > Wildfire Shelter < /b> < p > '+key+' < /p>');
+                            }).addTo(map).bindPopup('<b>Wildfire Shelter</b><p>'+key+'</p>');
                             }
                           }
                         }
