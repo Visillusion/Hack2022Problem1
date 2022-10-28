@@ -1,8 +1,6 @@
 # wildfire
 Project 1 - Code for wildfire project in hackathon club
 
-Since github pages does not support server-sided files such as php and nodejs, the only way to have a database is externally, so my json is hosted externally. 
-
 The page json.html exists for developers to view the json when testing.
 
 The page cleardb.html exists to clear the json database while testing.
